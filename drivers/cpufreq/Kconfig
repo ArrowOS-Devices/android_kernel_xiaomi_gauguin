@@ -428,4 +428,12 @@ config QORIQ_CPUFREQ
 	  which are capable of changing the CPU's frequency dynamically.
 
 endif
+
+config MI_THERMAL_INTERFACE
+	tristate "Xiaomi thermal control interface"
+	depends on THERMAL
+	default y
+	help
+	  This is xiaomi thermal control interface.
+
 endmenu
