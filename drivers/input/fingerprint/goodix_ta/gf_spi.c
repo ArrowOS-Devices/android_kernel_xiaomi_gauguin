@@ -882,7 +882,7 @@ static int gf_probe(struct platform_device *pdev)
 	gf_dev->notifier = goodix_noti_block;
 	mi_drm_register_client(&gf_dev->notifier);
 #endif
-	gf_dev->irq = gf_irq_num(gf_dev);
+	gf_dev->irq = gpio_to_irq(gf_dev->irq_gpio);
 	fp_wakelock = wakeup_source_register(&gf_dev->spi->dev, "fp_wakelock");
 	pr_debug("version V%d.%d.%02d\n", VER_MAJOR, VER_MINOR, PATCH_LEVEL);
 	return status;
