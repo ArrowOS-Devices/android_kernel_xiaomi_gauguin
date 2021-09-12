@@ -254,7 +254,7 @@ static int32_t cam_sensor_get_io_buffer(
 		if ((rc < 0) || (!buf_addr)) {
 			CAM_ERR(CAM_SENSOR,
 				"invalid buffer, rc: %d, buf_addr: %pK",
-				rc, buf_addr);
+				rc, (void *)buf_addr);
 			return -EINVAL;
 		}
 		CAM_DBG(CAM_SENSOR,
@@ -263,7 +263,7 @@ static int32_t cam_sensor_get_io_buffer(
 		if (io_cfg->offsets[0] >= buf_size) {
 			CAM_ERR(CAM_SENSOR,
 				"invalid size:io_cfg->offsets[0]: %d, buf_size: %d",
-				io_cfg->offsets[0], buf_size);
+				io_cfg->offsets[0], (int)buf_size);
 			return -EINVAL;
 		}
 		i2c_settings->read_buff =
@@ -639,7 +639,7 @@ int cam_sensor_i2c_command_parser(
 				if (tot_size > (remain_len - byte_cnt)) {
 					CAM_ERR(CAM_SENSOR,
 						"Not enough buffer provided %d, %d, %d",
-						tot_size, remain_len, byte_cnt);
+						tot_size, (int)remain_len, (int)byte_cnt);
 					rc = -EINVAL;
 					goto end;
 				}
@@ -680,7 +680,7 @@ int cam_sensor_i2c_command_parser(
 				if (tot_size > (remain_len - byte_cnt)) {
 					CAM_ERR(CAM_SENSOR,
 						"Not enough buffer provided %d, %d, %d",
-						tot_size, remain_len, byte_cnt);
+						tot_size, (int)remain_len, (int)byte_cnt);
 					rc = -EINVAL;
 					goto end;
 				}
