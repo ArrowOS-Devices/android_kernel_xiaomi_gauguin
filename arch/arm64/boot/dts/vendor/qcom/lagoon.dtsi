@@ -1015,6 +1015,7 @@
 
 	dcc: dcc_v2@109f000 {
 		compatible = "qcom,dcc-v2";
+		status = "disabled";
 		reg = <0x109f000 0x1000>,
 		      <0x1026000 0x2000>;
 		reg-names = "dcc-base", "dcc-ram-base";
