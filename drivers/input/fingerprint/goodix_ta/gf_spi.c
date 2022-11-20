@@ -553,7 +553,7 @@ static int gf_open(struct inode *inode, struct file *filp)
 		}
 	}
 #ifdef CONFIG_FINGERPRINT_FP_VREG_CONTROL
-	pr_info("Try to enable fp_vdd_vreg\n");
+	pr_debug("Try to enable fp_vdd_vreg\n");
 	gf_dev->vreg = regulator_get(&gf_dev->spi->dev, "fp_vdd_vreg");
 
 	if (gf_dev->vreg == NULL) {
@@ -563,7 +563,7 @@ static int gf_open(struct inode *inode, struct file *filp)
 	}
 
 	if (regulator_is_enabled(gf_dev->vreg)) {
-		pr_info("fp_vdd_vreg is already enabled!\n");
+		pr_debug("fp_vdd_vreg is already enabled!\n");
 	} else {
 		rc = regulator_enable(gf_dev->vreg);
 
@@ -576,7 +576,7 @@ static int gf_open(struct inode *inode, struct file *filp)
 		}
 	}
 
-	pr_info("fp_vdd_vreg is enabled!\n");
+	pr_debug("fp_vdd_vreg is enabled!\n");
 #endif
 
 	if (status == 0) {
@@ -665,7 +665,7 @@ static int gf_release(struct inode *inode, struct file *filp)
 	 *Disable fp_vdd_vreg regulator
 	 */
 #ifdef CONFIG_FINGERPRINT_FP_VREG_CONTROL
-	pr_info("disable fp_vdd_vreg!\n");
+	pr_debug("disable fp_vdd_vreg!\n");
 
 	if (regulator_is_enabled(gf_dev->vreg)) {
 		regulator_disable(gf_dev->vreg);
