@@ -71,7 +71,7 @@ static void __init at91_wakeup_status(struct platform_device *pdev)
 	else
 		reason = "unknown";
 
-	dev_info(&pdev->dev, "Wake-Up source: %s\n", reason);
+	dev_dbg(&pdev->dev, "Wake-Up source: %s\n", reason);
 }
 
 static void at91_poweroff(void)

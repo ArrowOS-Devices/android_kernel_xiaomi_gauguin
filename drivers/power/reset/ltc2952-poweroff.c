@@ -130,7 +130,7 @@ ltc2952_poweroff_timer_trigger(struct hrtimer *timer)
 	struct ltc2952_poweroff *data = to_ltc2952(timer, timer_trigger);
 
 	ltc2952_poweroff_start_wde(data);
-	dev_info(data->dev, "executing shutdown\n");
+	dev_dbg(data->dev, "executing shutdown\n");
 	orderly_poweroff(true);
 
 	return HRTIMER_NORESTART;
@@ -240,7 +240,7 @@ static int ltc2952_poweroff_init(struct platform_device *pdev)
 			devm_gpiod_put(&pdev->dev, data->gpio_trigger);
 			data->gpio_trigger = NULL;
 		}
-		dev_info(&pdev->dev,
+		dev_dbg(&pdev->dev,
 			 "power down trigger input will not be used\n");
 		ltc2952_poweroff_start_wde(data);
 	}
@@ -285,7 +285,7 @@ static int ltc2952_poweroff_probe(struct platform_device *pdev)
 	data->panic_notifier.notifier_call = ltc2952_poweroff_notify_panic;
 	atomic_notifier_chain_register(&panic_notifier_list,
 				       &data->panic_notifier);
-	dev_info(&pdev->dev, "probe successful\n");
+	dev_dbg(&pdev->dev, "probe successful\n");
 
 	return 0;
 }

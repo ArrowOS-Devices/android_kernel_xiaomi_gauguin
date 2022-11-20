@@ -52,18 +52,18 @@ static irqreturn_t gemini_powerbutton_interrupt(int irq, void *data)
 		 * controller so it can cause spurious poweroff
 		 * events. Ignore those for now.
 		 */
-		dev_info(gpw->dev, "infrared poweroff - ignored\n");
+		dev_dbg(gpw->dev, "infrared poweroff - ignored\n");
 		break;
 	case GEMINI_STAT_RTC:
-		dev_info(gpw->dev, "RTC poweroff\n");
+		dev_dbg(gpw->dev, "RTC poweroff\n");
 		orderly_poweroff(true);
 		break;
 	case GEMINI_STAT_POWERBUTTON:
-		dev_info(gpw->dev, "poweroff button pressed\n");
+		dev_dbg(gpw->dev, "poweroff button pressed\n");
 		orderly_poweroff(true);
 		break;
 	default:
-		dev_info(gpw->dev, "other power management IRQ\n");
+		dev_dbg(gpw->dev, "other power management IRQ\n");
 		break;
 	}
 
@@ -153,7 +153,7 @@ static int gemini_poweroff_probe(struct platform_device *pdev)
 	pm_power_off = gemini_poweroff;
 	gpw_poweroff = gpw;
 
-	dev_info(dev, "Gemini poweroff driver registered\n");
+	dev_dbg(dev, "Gemini poweroff driver registered\n");
 
 	return 0;
 }

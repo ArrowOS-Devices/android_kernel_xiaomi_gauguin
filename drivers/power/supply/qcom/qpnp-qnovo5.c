@@ -136,7 +136,7 @@ module_param_named(debug_mask, debug_mask, int, 0600);
 #define qnovo_dbg(chip, reason, fmt, ...)				\
 	do {								\
 		if (debug_mask & (reason))				\
-			dev_info(chip->dev, fmt, ##__VA_ARGS__);	\
+			dev_dbg(chip->dev, fmt, ##__VA_ARGS__);	\
 		else							\
 			dev_dbg(chip->dev, fmt, ##__VA_ARGS__);		\
 	} while (0)

@@ -128,7 +128,7 @@ static int debug_mask;
 #define pl_dbg(chip, reason, fmt, ...)			\
 	do {						\
 		if (debug_mask & (reason))		\
-			pr_info(fmt, ##__VA_ARGS__);	\
+			pr_debug(fmt, ##__VA_ARGS__);	\
 		else					\
 			pr_debug(fmt, ##__VA_ARGS__);	\
 	} while (0)
@@ -1076,7 +1076,7 @@ static void fcc_stepper_work(struct work_struct *work)
 		rc = power_supply_get_property(chip->batt_psy,
 				POWER_SUPPLY_PROP_TEMP, &pval);
 		batt_temp = pval.intval;
-		pr_info("get batt temp=%d\n", batt_temp);
+		pr_debug("get batt temp=%d\n", batt_temp);
 	}
 	/*
 	 * If USB is not present, then set parallel FCC to min value and
@@ -1441,7 +1441,7 @@ static int pl_disable_vote_callback(struct votable *votable,
 			return rc;
 
 		if (disable) {
-			pr_info("Parallel ICL is less than min ICL(%d), skipping parallel enable\n",
+			pr_debug("Parallel ICL is less than min ICL(%d), skipping parallel enable\n",
 					chip->pl_min_icl_ua);
 			return 0;
 		}
