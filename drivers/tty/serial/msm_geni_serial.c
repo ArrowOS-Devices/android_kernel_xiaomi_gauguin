@@ -3131,7 +3131,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_rx = ipc_log_context_create(
 					IPC_LOG_TX_RX_PAGES, name, 0);
 			if (!msm_port->ipc_log_rx)
-				dev_info(uport->dev, "Err in Rx IPC Log\n");
+				dev_dbg(uport->dev, "Err in Rx IPC Log\n");
 		}
 		memset(name, 0, sizeof(name));
 		if (!msm_port->ipc_log_tx) {
@@ -3140,7 +3140,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_tx = ipc_log_context_create(
 					IPC_LOG_TX_RX_PAGES, name, 0);
 			if (!msm_port->ipc_log_tx)
-				dev_info(uport->dev, "Err in Tx IPC Log\n");
+				dev_dbg(uport->dev, "Err in Tx IPC Log\n");
 		}
 		memset(name, 0, sizeof(name));
 		if (!msm_port->ipc_log_pwr) {
@@ -3149,7 +3149,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_pwr = ipc_log_context_create(
 					IPC_LOG_PWR_PAGES, name, 0);
 			if (!msm_port->ipc_log_pwr)
-				dev_info(uport->dev, "Err in Pwr IPC Log\n");
+				dev_dbg(uport->dev, "Err in Pwr IPC Log\n");
 		}
 		memset(name, 0, sizeof(name));
 		if (!msm_port->ipc_log_misc) {
@@ -3158,7 +3158,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_misc = ipc_log_context_create(
 					IPC_LOG_MISC_PAGES, name, 0);
 			if (!msm_port->ipc_log_misc)
-				dev_info(uport->dev, "Err in Misc IPC Log\n");
+				dev_dbg(uport->dev, "Err in Misc IPC Log\n");
 		}
 		/* New set of UART IPC log for RX Invalid case */
 		memset(name, 0, sizeof(name));
@@ -3168,7 +3168,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_single = ipc_log_context_create(
 					IPC_LOG_MISC_PAGES, name, 0);
 			if (!msm_port->ipc_log_single)
-				dev_info(uport->dev, "Err in single IPC Log\n");
+				dev_dbg(uport->dev, "Err in single IPC Log\n");
 		}
 		memset(name, 0, sizeof(name));
 		if (!msm_port->ipc_log_irqstatus) {
@@ -3177,7 +3177,7 @@ static void msm_geni_serial_debug_init(struct uart_port *uport, bool console)
 			msm_port->ipc_log_irqstatus = ipc_log_context_create(
 					IPC_LOG_MISC_PAGES, name, 0);
 			if (!msm_port->ipc_log_irqstatus)
-				dev_info(uport->dev, "Err in irqstatus IPC Log\n");
+				dev_dbg(uport->dev, "Err in irqstatus IPC Log\n");
 		}
 	} else {
 		memset(name, 0, sizeof(name));
