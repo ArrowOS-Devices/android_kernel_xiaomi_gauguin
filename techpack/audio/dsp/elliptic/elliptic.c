@@ -695,22 +695,6 @@ static int32_t elliptic_send_calibration_to_engine(size_t calib_data_size)
 
 #endif
 
-void elliptic_wakeup_source_prepare(struct wakeup_source *ws, const char *name)
-{
-	if (ws) {
-		memset(ws, 0, sizeof(*ws));
-		ws->name = name;
-	}
-}
-
-void elliptic_wakeup_source_drop(struct wakeup_source *ws)
-{
-	if (!ws)
-		return;
-
-	__pm_relax(ws);
-}
-
 int __init elliptic_driver_init(void)
 {
 	int err;
@@ -774,14 +758,12 @@ int __init elliptic_driver_init(void)
 	if (elliptic_userspace_ctrl_driver_init())
 		goto fail;
 
-	wake_source = kmalloc(sizeof(struct wakeup_source), GFP_KERNEL);
+        wake_source = wakeup_source_register(NULL, "elliptic_wake_source");
 
 	if (!wake_source) {
 		EL_PRINT_E("failed to allocate wake source");
 		return -ENOMEM;
 	}
-	elliptic_wakeup_source_prepare(wake_source, "elliptic_wake_source");
-	wakeup_source_add(wake_source);
 
 #ifdef ELLIPTIC_LOAD_CALIBRATION_DATA_FROM_FILESYSTEM
 	/* Code to send calibration to engine */
@@ -801,9 +783,7 @@ fail:
 void elliptic_driver_exit(void)
 {
 	if (wake_source) {
-		wakeup_source_remove(wake_source);
-		elliptic_wakeup_source_drop(wake_source);
-		kfree(wake_source);
+		wakeup_source_unregister(wake_source);
 	}
 
 	elliptic_cleanup_sysfs();
