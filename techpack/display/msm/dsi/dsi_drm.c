@@ -466,7 +466,7 @@ static void dsi_bridge_mode_set(struct drm_bridge *bridge,
 	c_bridge->dsi_mode.timing.clk_rate_hz =
 		dsi_drm_find_bit_clk_rate(c_bridge->display, adjusted_mode);
 
-	DSI_INFO("clk_rate: %llu\n", c_bridge->dsi_mode.timing.clk_rate_hz);
+	DSI_DEBUG("clk_rate: %llu\n", c_bridge->dsi_mode.timing.clk_rate_hz);
 }
 
 static bool dsi_bridge_mode_fixup(struct drm_bridge *bridge,

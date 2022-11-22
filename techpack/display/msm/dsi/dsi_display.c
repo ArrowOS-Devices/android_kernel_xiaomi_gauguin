@@ -1087,7 +1087,7 @@ int dsi_display_set_power(struct drm_connector *connector,
 	notify_data.data = &power_mode;
 	notify_data.id = MSM_DRM_PRIMARY_DISPLAY;
 
-	DSI_INFO("power_mode = %s\n", sde_power_mode_str[power_mode]);
+	DSI_DEBUG("power_mode = %s\n", sde_power_mode_str[power_mode]);
 
 	switch (power_mode) {
 	case SDE_MODE_DPMS_LP1:
@@ -6853,9 +6853,9 @@ int dsi_display_set_mode(struct dsi_display *display,
 		goto error;
 	}
 
-	DSI_INFO("mdp_transfer_time_us=%d us\n",
+	DSI_DEBUG("mdp_transfer_time_us=%d us\n",
 			adj_mode.priv_info->mdp_transfer_time_us);
-	DSI_INFO("hactive= %d,vactive= %d,fps=%d\n",
+	DSI_DEBUG("hactive= %d,vactive= %d,fps=%d\n",
 			timing.h_active, timing.v_active,
 			timing.refresh_rate);
 
