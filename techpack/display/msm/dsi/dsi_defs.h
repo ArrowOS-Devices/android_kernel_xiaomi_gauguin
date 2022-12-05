@@ -584,7 +584,6 @@ struct dsi_video_engine_cfg {
 	bool hsa_lp11_en;
 	bool eof_bllp_lp11_en;
 	bool bllp_lp11_en;
-	bool splash_dms;
 	enum dsi_video_traffic_mode traffic_mode;
 	u32 vc_id;
 	u32 dma_sched_line;
@@ -686,7 +685,6 @@ struct dsi_display_mode {
 	u32 dsi_mode_flags;
 	enum dsi_op_mode panel_mode;
 	bool is_preferred;
-	bool splash_dms;
 	struct dsi_display_mode_priv_info *priv_info;
 };
 
