@@ -408,8 +408,10 @@ static int pm8xxx_rtc_probe(struct platform_device *pdev)
 
 	/* Register the RTC device */
 	rtc_dd->rtc = devm_rtc_allocate_device(&pdev->dev);
-	if (IS_ERR(rtc_dd->rtc))
+	if (IS_ERR(rtc_dd->rtc)) {
+		device_init_wakeup(&pdev->dev, 0);
 		return PTR_ERR(rtc_dd->rtc);
+	}
 
 	rtc_dd->rtc->ops = &pm8xxx_rtc_ops;
 	rtc_dd->rtc->range_max = U32_MAX;
