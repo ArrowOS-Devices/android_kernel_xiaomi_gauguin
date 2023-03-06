@@ -1017,7 +1017,7 @@ static int ds28el16_get_page_data_retry(int page, unsigned char *data)
 			mi_page0_data[12], mi_page0_data[13], mi_page0_data[14], mi_page0_data[15]);
 			ds_dbg("flag_mi_page1_data is %d\n", flag_mi_page1_data);
 			ds_dbg("mi_page1_data data:\n");
-			ds_dbg("%%02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x",
+			ds_dbg("%02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x",
 			mi_page1_data[0], mi_page1_data[1], mi_page1_data[2], mi_page1_data[3],
 			mi_page1_data[4], mi_page1_data[5], mi_page1_data[6], mi_page1_data[7],
 			mi_page1_data[8], mi_page1_data[9], mi_page1_data[10], mi_page1_data[11],
