@@ -43,7 +43,7 @@ enum vdd_gx_levels {
 	VDD_GX_NUM,
 };
 
-static int vdd_gx_corner[] = {
+static int __maybe_unused vdd_gx_corner[] = {
 	[VDD_GX_NONE]    = 0,
 	[VDD_GX_MIN]     = RPMH_REGULATOR_LEVEL_MIN_SVS,
 	[VDD_GX_LOWER]   = RPMH_REGULATOR_LEVEL_LOW_SVS,
