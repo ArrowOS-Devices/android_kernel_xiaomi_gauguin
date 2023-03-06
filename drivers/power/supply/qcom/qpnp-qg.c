@@ -2339,7 +2339,7 @@ static int qg_psy_set_property(struct power_supply *psy,
 		chip->fake_temp = pval->intval;
 		break;
 	case POWER_SUPPLY_PROP_SHUTDOWN_DELAY:
-		chip->shutdown_delay_enable;
+		chip->shutdown_delay_enable = pval->intval;
 		break;
 	default:
 		break;
