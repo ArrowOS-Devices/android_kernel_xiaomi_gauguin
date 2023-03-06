@@ -2111,7 +2111,7 @@ static int cs35l41_force_reload_put(struct snd_kcontrol *kcontrol,
 	struct cs35l41_private *cs35l41 =
 		snd_soc_component_get_drvdata(component);
 
-	dev_info(cs35l41->dev, "%s: force test = %d\n",
+	dev_info(cs35l41->dev, "%s: force test = %ld\n",
 			__func__, ucontrol->value.integer.value[0]);
 
 	cs35l41_fw_force_reload(component);
