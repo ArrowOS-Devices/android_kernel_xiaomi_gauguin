@@ -227,7 +227,7 @@ static int __cam_req_mgr_notify_error_on_link(
 	int rc = 0, pd;
 
 	if (!link || !dev) {
-		CAM_ERR(CAM_CRM, "Invalid Arguments link: 0x%x dev: 0x%x!",
+		CAM_ERR(CAM_CRM, "Invalid Arguments link: 0x%p dev: 0x%p!",
 			link, dev);
 		return -EINVAL;
 	}
