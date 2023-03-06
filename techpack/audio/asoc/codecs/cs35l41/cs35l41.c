@@ -2035,7 +2035,7 @@ static void cs35l41_fw_reload_work(struct work_struct *work)
 
 	/* Don't power up if the component in deactive status*/
 	if (component->active <= 0) {
-		dev_info(cs35l41->dev, "%s: component active = \n",
+		dev_info(cs35l41->dev, "%s: component active = %d\n",
 				__func__, component->active);
 		mutex_unlock(&cs35l41->reload_lock);
 		return;
