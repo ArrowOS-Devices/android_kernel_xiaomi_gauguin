@@ -1109,7 +1109,7 @@ int dsi_panel_set_doze_brightness(struct dsi_panel *panel,
 {
 	int rc = 0;
 	struct dsi_panel_mi_cfg *mi_cfg;
-	const char *doze_brightness_str[] = {
+	const char __maybe_unused *doze_brightness_str[] = {
 		[DOZE_TO_NORMAL] = "DOZE_TO_NORMAL",
 		[DOZE_BRIGHTNESS_HBM] = "DOZE_BRIGHTNESS_HBM",
 		[DOZE_BRIGHTNESS_LBM] = "DOZE_BRIGHTNESS_LBM",
