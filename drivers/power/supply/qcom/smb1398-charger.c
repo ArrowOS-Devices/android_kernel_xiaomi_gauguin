@@ -1294,7 +1294,7 @@ static bool is_adapter_in_cc_mode(struct smb1398_chip *chip)
 			POWER_SUPPLY_PROP_ADAPTER_CC_MODE,
 			&pval);
 	if (rc < 0) {
-		dev_err(chip->dev, "Couldn't get ADAPTER_CC_MODE, rc=%d\n");
+		dev_err(chip->dev, "Couldn't get ADAPTER_CC_MODE, rc=%u\n", rc);
 		return rc;
 	}
 
