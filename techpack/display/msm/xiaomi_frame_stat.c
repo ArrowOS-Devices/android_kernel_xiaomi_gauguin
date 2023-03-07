@@ -70,7 +70,7 @@ void frame_stat_notify(u32 data)
 
 	display = container_of(g_panel->host, struct dsi_display, host);
 	if (!display) {
-		pr_err("%s: invalid param.\n");
+		pr_err("%s: invalid param.\n", __func__);
 		return;
 	}
 
