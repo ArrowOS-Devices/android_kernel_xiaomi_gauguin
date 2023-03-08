@@ -1616,7 +1616,7 @@ static bool ufshcd_is_devfreq_scaling_required(struct ufs_hba *hba,
 int ufshcd_wait_for_doorbell_clr(struct ufs_hba *hba,
 					u64 wait_timeout_us)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 	int ret = 0;
 	u32 tm_doorbell;
 	u32 tr_doorbell;
@@ -1968,7 +1968,7 @@ static int ufshcd_devfreq_get_dev_status(struct device *dev,
 {
 	struct ufs_hba *hba = dev_get_drvdata(dev);
 	struct ufs_clk_scaling *scaling = &hba->clk_scaling;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!ufshcd_is_clkscaling_supported(hba))
 		return -EINVAL;
@@ -2200,7 +2200,7 @@ unblock_reqs:
 static void ufshcd_panic_ungate_work(struct ufs_hba *hba)
 {
 	int ret;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!oops_in_progress)
 	    ufshcd_cancel_gate_work(hba);
@@ -2243,7 +2243,7 @@ int ufshcd_hold(struct ufs_hba *hba, bool async)
 {
 	int rc = 0;
 	bool flush_result;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!ufshcd_is_clkgating_allowed(hba))
 		goto out;
@@ -2348,7 +2348,7 @@ static void ufshcd_gate_work(struct work_struct *work)
 {
 	struct ufs_hba *hba = container_of(work, struct ufs_hba,
 						clk_gating.gate_work);
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	hba->clk_gating.gate_wk_in_process = true;
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
@@ -2458,7 +2458,7 @@ static void __ufshcd_release(struct ufs_hba *hba, bool no_sched)
 
 void ufshcd_release(struct ufs_hba *hba, bool no_sched)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
 	__ufshcd_release(hba, no_sched);
@@ -2729,7 +2729,7 @@ static void ufshcd_exit_clk_gating(struct ufs_hba *hba)
 static int ufshcd_hibern8_hold(struct ufs_hba *hba, bool async)
 {
 	int rc = 0;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!ufshcd_is_hibern8_on_idle_allowed(hba))
 		goto out;
@@ -2845,7 +2845,7 @@ static void __ufshcd_hibern8_release(struct ufs_hba *hba, bool no_sched)
 
 static void ufshcd_hibern8_release(struct ufs_hba *hba, bool no_sched)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
 	__ufshcd_hibern8_release(hba, no_sched);
@@ -2856,7 +2856,7 @@ static void ufshcd_hibern8_enter_work(struct work_struct *work)
 {
 	struct ufs_hba *hba = container_of(work, struct ufs_hba,
 					   hibern8_on_idle.enter_work.work);
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
 	if (hba->hibern8_on_idle.is_suspended) {
@@ -2907,7 +2907,7 @@ out:
 static void ufshcd_hibern8_exit_work(struct work_struct *work)
 {
 	int ret;
-	unsigned long flags;
+	unsigned long flags = 0;
 	struct ufs_hba *hba = container_of(work, struct ufs_hba,
 					   hibern8_on_idle.exit_work);
 
@@ -2954,7 +2954,7 @@ static ssize_t ufshcd_hibern8_on_idle_delay_store(struct device *dev,
 		struct device_attribute *attr, const char *buf, size_t count)
 {
 	struct ufs_hba *hba = dev_get_drvdata(dev);
-	unsigned long flags, value;
+	unsigned long flags = 0, value;
 	bool change = true;
 
 	if (kstrtoul(buf, 0, &value))
@@ -3351,7 +3351,7 @@ static int
 ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
 {
 	int ret;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	hba->ufs_stats.clk_hold.ctx = UIC_CMD_SEND;
 	ufshcd_hold_all(hba);
@@ -3755,7 +3755,7 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
 {
 	struct ufshcd_lrb *lrbp;
 	struct ufs_hba *hba;
-	unsigned long flags;
+	unsigned long flags = 0;
 	int tag;
 	int err = 0;
 	bool has_read_lock = false;
@@ -3970,7 +3970,7 @@ static int
 ufshcd_clear_cmd(struct ufs_hba *hba, int tag)
 {
 	int err = 0;
-	unsigned long flags;
+	unsigned long flags = 0;
 	u32 mask = 1 << tag;
 
 	/* clear outstanding transaction before retry */
@@ -4048,7 +4048,7 @@ static int ufshcd_wait_for_dev_cmd(struct ufs_hba *hba,
 {
 	int err = 0;
 	unsigned long time_left;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	time_left = wait_for_completion_timeout(hba->dev_cmd.complete,
 			msecs_to_jiffies(max_timeout));
@@ -4139,7 +4139,7 @@ static int ufshcd_exec_dev_cmd(struct ufs_hba *hba,
 	int err;
 	int tag;
 	struct completion wait;
-	unsigned long flags;
+	unsigned long flags = 0;
 	bool has_read_lock = false;
 
 	/*
@@ -5226,7 +5226,7 @@ EXPORT_SYMBOL_GPL(ufshcd_dme_get_attr);
 static int ufshcd_uic_pwr_ctrl(struct ufs_hba *hba, struct uic_command *cmd)
 {
 	struct completion uic_async_done;
-	unsigned long flags;
+	unsigned long flags = 0;
 	u8 status;
 	int ret;
 	bool reenable_intr = false;
@@ -5382,7 +5382,7 @@ out:
 static int ufshcd_link_recovery(struct ufs_hba *hba)
 {
 	int ret = 0;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	/*
 	 * Check if there is any race with fatal error handling.
@@ -5535,7 +5535,7 @@ int ufshcd_uic_hibern8_exit(struct ufs_hba *hba)
 
 static void ufshcd_set_auto_hibern8_timer(struct ufs_hba *hba)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!ufshcd_is_auto_hibern8_supported(hba))
 		return;
@@ -6353,7 +6353,7 @@ static int ufshcd_task_req_compl(struct ufs_hba *hba, u32 index, u8 *resp)
 {
 	struct utp_task_req_desc *task_req_descp;
 	struct utp_upiu_task_rsp *task_rsp_upiup;
-	unsigned long flags;
+	unsigned long flags = 0;
 	int ocs_value;
 	int task_result;
 
@@ -7248,7 +7248,7 @@ static void ufshcd_complete_requests(struct ufs_hba *hba)
  */
 static bool ufshcd_quirk_dl_nac_errors(struct ufs_hba *hba)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 	bool err_handling = true;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
@@ -7340,7 +7340,7 @@ out:
 static void ufshcd_err_handler(struct work_struct *work)
 {
 	struct ufs_hba *hba;
-	unsigned long flags;
+	unsigned long flags = 0;
 	bool err_xfer = false, err_tm = false;
 	int err = 0;
 	int tag;
@@ -7849,7 +7849,7 @@ static int ufshcd_clear_tm_cmd(struct ufs_hba *hba, int tag)
 {
 	int err = 0;
 	u32 mask = 1 << tag;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	if (!test_bit(tag, &hba->outstanding_tasks))
 		goto out;
@@ -7882,7 +7882,7 @@ static int ufshcd_issue_tm_cmd(struct ufs_hba *hba, int lun_id, int task_id,
 	struct utp_task_req_desc *task_req_descp;
 	struct utp_upiu_task_req *task_req_upiup;
 	struct Scsi_Host *host;
-	unsigned long flags;
+	unsigned long flags = 0;
 	int free_slot;
 	int err;
 	int task_tag;
@@ -7982,7 +7982,7 @@ static int ufshcd_eh_device_reset_handler(struct scsi_cmnd *cmd)
 	u32 pos;
 	int err;
 	u8 resp = 0xF, lun;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	host = cmd->device->host;
 	hba = shost_priv(host);
@@ -8229,7 +8229,7 @@ out:
 static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
 {
 	int err;
-	unsigned long flags;
+	unsigned long flags = 0;
 
 	/*
 	 * Stop the host controller and complete the requests
@@ -8320,7 +8320,7 @@ static int ufshcd_reset_and_restore(struct ufs_hba *hba)
 static int ufshcd_eh_host_reset_handler(struct scsi_cmnd *cmd)
 {
 	int err = SUCCESS;
-	unsigned long flags;
+	unsigned long flags = 0;
 	struct ufs_hba *hba;
 
 	hba = shost_priv(cmd->device->host);
@@ -9167,7 +9167,7 @@ reinit:
 	}
 
 	if (ufshcd_needs_reinit(hba)) {
-		unsigned long flags;
+		unsigned long flags = 0;
 		int err;
 
 		err = ufshcd_vops_full_reset(hba);
@@ -9356,7 +9356,7 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
 
 static enum blk_eh_timer_return ufshcd_eh_timed_out(struct scsi_cmnd *scmd)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 	struct Scsi_Host *host;
 	struct ufs_hba *hba;
 	int index;
@@ -10218,7 +10218,7 @@ static int ufshcd_set_dev_pwr_mode(struct ufs_hba *hba,
 	unsigned char cmd[6] = { START_STOP };
 	struct scsi_sense_hdr sshdr;
 	struct scsi_device *sdp;
-	unsigned long flags;
+	unsigned long flags = 0;
 	int ret;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
