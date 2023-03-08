@@ -146,7 +146,7 @@ static ssize_t powerup_reason_details_show(struct kobject *kobj,
 
 bootinfo_attr(powerup_reason);
 bootinfo_attr(powerup_reason_details);
-bootinfo_func_init(u32, powerup_reason, 0);
+bootinfo_func_init(powerup_reason_t, powerup_reason, 0);
 
 static struct attribute *g[] = {
 	&powerup_reason_attr.attr,

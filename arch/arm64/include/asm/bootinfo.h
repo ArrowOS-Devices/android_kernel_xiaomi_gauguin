@@ -47,7 +47,7 @@ enum {
 #define RESTART_EVENT_NORMAL            0x40000
 #define RESTART_EVENT_OTHER             0x80000
 
-unsigned int get_powerup_reason(void);
+powerup_reason_t get_powerup_reason(void);
 int is_abnormal_powerup(void);
-void set_powerup_reason(unsigned int powerup_reason);
+void set_powerup_reason(powerup_reason_t powerup_reason);
 #endif
