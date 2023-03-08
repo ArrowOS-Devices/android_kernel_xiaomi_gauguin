@@ -959,7 +959,7 @@ static int pd_eval_src_caps(struct usbpd *pd)
 	union power_supply_propval val;
 	bool pps_found = false;
 	u32 first_pdo = pd->received_pdos[0];
-	int max_volt, min_volt, max_curr;
+	int max_volt = 0, min_volt = 0, max_curr = 0;
 	int pps_min_power = 0;
 
 	if (PD_SRC_PDO_TYPE(first_pdo) != PD_SRC_PDO_TYPE_FIXED) {
