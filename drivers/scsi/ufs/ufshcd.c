@@ -1912,7 +1912,7 @@ static int ufshcd_devfreq_target(struct device *dev,
 	bool scale_up, sched_clk_scaling_suspend_work = false;
 	struct list_head *clk_list = &hba->clk_list_head;
 	struct ufs_clk_info *clki;
-	unsigned long irq_flags;
+	unsigned long irq_flags = 0;
 
 	if (!ufshcd_is_clkscaling_supported(hba))
 		return -EINVAL;
