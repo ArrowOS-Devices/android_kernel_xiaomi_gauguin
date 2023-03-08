@@ -1663,7 +1663,7 @@ static int ufs_qcom_cpu_to_group(struct ufs_qcom_host *host, int cpu)
 
 static void ufs_qcom_pm_qos_req_start(struct ufs_hba *hba, struct request *req)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 	struct ufs_qcom_host *host;
 	struct ufs_qcom_pm_qos_cpu_group *group;
 
@@ -2610,7 +2610,7 @@ int ufs_qcom_testbus_config(struct ufs_qcom_host *host)
 	int reg = 0;
 	int offset = -1, ret = 0, testbus_sel_offset = 19;
 	u32 mask = TEST_BUS_SUB_SEL_MASK;
-	unsigned long flags;
+	unsigned long flags = 0;
 	struct ufs_hba *hba;
 
 	if (!host)
@@ -2906,7 +2906,7 @@ static unsigned int ufs_qcom_gec(struct ufs_hba *hba,
 				 struct ufs_uic_err_reg_hist *err_hist,
 				 char *err_name)
 {
-	unsigned long flags;
+	unsigned long flags = 0;
 	int i, cnt_err = 0;
 
 	ufs_spin_lock_irqsave(hba->host->host_lock, flags);
