@@ -165,7 +165,7 @@ static void gsi_channel_state_change_wait(unsigned long chan_hdl,
 	enum gsi_chan_state curr_state = GSI_CHAN_STATE_NOT_ALLOCATED;
 	int stop_in_proc_retry = 0;
 	int stop_retry = 0;
-	uint32_t rp, wp;
+	uint32_t rp = 0, wp = 0;
 
 	/*
 	 * Start polling the GSI channel for
