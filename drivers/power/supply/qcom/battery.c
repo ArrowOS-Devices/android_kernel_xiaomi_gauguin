@@ -1076,7 +1076,7 @@ static void fcc_stepper_work(struct work_struct *work)
 		rc = power_supply_get_property(chip->batt_psy,
 				POWER_SUPPLY_PROP_TEMP, &pval);
 		batt_temp = pval.intval;
-		pr_info("get batt temp=%d\n", batt_temp);
+		pr_debug("get batt temp=%d\n", batt_temp);
 	}
 
 	/*

@@ -26,6 +26,7 @@
 	pr_err("%s: %s: " fmt, chg->name,	\
 		__func__, ##__VA_ARGS__)	\
 
+#ifdef DEBUG
 #define smblib_dbg(chg, reason, fmt, ...)			\
 	do {							\
 		if (*chg->debug_mask & (reason))		\
@@ -35,6 +36,9 @@
 			pr_debug("%s: %s: " fmt, chg->name,	\
 				__func__, ##__VA_ARGS__);	\
 	} while (0)
+#else
+#define smblib_dbg(chg, reason, fmt, ...) do {} while (0)
+#endif
 
 #define typec_rp_med_high(chg, typec_mode)			\
 	((typec_mode == POWER_SUPPLY_TYPEC_SOURCE_MEDIUM	\
@@ -2279,7 +2283,7 @@ int smblib_get_prop_batt_status(struct smb_charger *chg,
 			val->intval = POWER_SUPPLY_STATUS_CHARGING;
 		} else if (usb_online || vbus_now > 4000000) {
 			val->intval = POWER_SUPPLY_STATUS_CHARGING;
-			pr_info("vbus_now is %d, report charging\n", vbus_now);
+			pr_debug("vbus_now is %d, report charging\n", vbus_now);
 		} else {
 			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
 		}
@@ -6244,7 +6248,7 @@ static int smblib_therm_charging(struct smb_charger *chg)
 		thermal_fcc_ua = chg->thermal_mitigation_dcp[chg->system_temp_level];
 		break;
 	}
-	pr_info("thermal_icl_ua is %d, chg->system_temp_level: %d, thermal_fcc_ua is %d, charger type = %d\n",
+	pr_debug("thermal_icl_ua is %d, chg->system_temp_level: %d, thermal_fcc_ua is %d, charger type = %d\n",
 				thermal_icl_ua, chg->system_temp_level, thermal_fcc_ua, chg->real_charger_type);
 	if (chg->system_temp_level == 0) {
 		/* if therm_lvl_sel is 0, clear thermal voter */
@@ -6482,7 +6486,7 @@ static void smblib_six_pin_batt_step_chg_work(struct work_struct *work)
 		return;
 	}
 	main_charge_type = pval.intval;
-	pr_err("main_charge_type: %d\n", main_charge_type);
+	pr_debug("main_charge_type: %d\n", main_charge_type);
 
 	/*
 	 * Add capacity compare to optimize cool charge  switch to

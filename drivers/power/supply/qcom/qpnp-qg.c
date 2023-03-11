@@ -38,7 +38,7 @@
 #include "qg-battery-profile.h"
 #include "qg-defs.h"
 
-static int qg_debug_mask = QG_DEBUG_PON | QG_DEBUG_PROFILE | QG_DEBUG_SOC | QG_DEBUG_STATUS;
+static int qg_debug_mask = 0;
 
 static int qg_esr_mod_count = 30;
 static ssize_t esr_mod_count_show(struct device *dev, struct device_attribute
@@ -1853,7 +1853,7 @@ static int qg_get_prop_soc_decimal(struct qpnp_qg *chip, int *val)
 
 	soc_dec = chip->sys_soc % 100;
 	soc = qg_get_prop_soc_decimal_rate(chip, &dec_rate);
-	pr_err("debug soc_dec=%d dec_rate=%d last_val=%d last_soc_dec=%d last_hal_soc=%d\n",
+	pr_debug("debug soc_dec=%d dec_rate=%d last_val=%d last_soc_dec=%d last_hal_soc=%d\n",
 			soc_dec, dec_rate, last_val, last_soc_dec, last_hal_soc);
 
 	if (soc_dec >= 0 && soc_dec < (50 - dec_rate))
@@ -1881,7 +1881,7 @@ static int qg_get_prop_soc_decimal(struct qpnp_qg *chip, int *val)
 	if (last_hal_soc != hal_soc)
 		last_hal_soc = hal_soc;
 
-	pr_err("debug val=%d soc_dec=%d sys_soc=%d dec_rate=%d soc=%d hal_soc=%d last_val=%d last_soc_dec=%d last_hal_soc=%d\n",
+	pr_debug("debug val=%d soc_dec=%d sys_soc=%d dec_rate=%d soc=%d hal_soc=%d last_val=%d last_soc_dec=%d last_hal_soc=%d\n",
 			*val, soc_dec, chip->sys_soc, dec_rate, soc, hal_soc, last_val, last_soc_dec, last_hal_soc);
 
 	return 0;
@@ -2454,7 +2454,7 @@ static int qg_psy_get_property(struct power_supply *psy,
 	case POWER_SUPPLY_PROP_BATT_FULL_CURRENT:
 		rc = qg_get_battery_temp(chip, &pval->intval);
 		/* if battery temp below 0C need config 300ma vabtt full current*/
-		pr_err("get battery temp = %d\n", pval->intval);
+		pr_debug("get battery temp = %d\n", pval->intval);
 		if (pval->intval < 0)
 			pval->intval = 300000;
 		else
