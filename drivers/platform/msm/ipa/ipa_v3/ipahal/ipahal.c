@@ -1757,7 +1757,9 @@ int ipahal_init(enum ipa_hw_type ipa_hw_type, void __iomem *base,
 		IPAHAL_ERR("failed to create IPA regdump log, continue...\n");
 #endif
 
+#ifdef CONFIG_DEBUG_FS
 	ipahal_debugfs_init();
+#endif
 
 	return 0;
 
