@@ -246,10 +246,10 @@ void kernel_restart(char *cmd)
 	else
 		pr_emerg("Restarting system with command '%s'\n", cmd);
 	kmsg_dump(KMSG_DUMP_RESTART);
-	machine_restart(cmd);
 	kernel_restart_prepare(cmd);
 	migrate_to_reboot_cpu();
 	syscore_shutdown();
+	machine_restart(cmd);
 }
 EXPORT_SYMBOL_GPL(kernel_restart);
 
