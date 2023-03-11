@@ -904,7 +904,7 @@ static int wm_adsp_cal_z_get(struct snd_kcontrol *kcontrol,
 
 	ucontrol->value.enumerated.item[0] = dsp->cal_z;
 
-	adsp_info(dsp, "get cal_z = %d\n",
+	adsp_dbg(dsp, "get cal_z = %d\n",
             ucontrol->value.enumerated.item[0]);
 
 	return 0;
@@ -933,7 +933,7 @@ static int wm_adsp_ambient_get(struct snd_kcontrol *kcontrol,
 
 	ucontrol->value.enumerated.item[0] = dsp->ambient;
 
-	adsp_info(dsp, "get ambient = %d\n",
+	adsp_dbg(dsp, "get ambient = %d\n",
             ucontrol->value.enumerated.item[0]);
 
 	return 0;
@@ -960,7 +960,7 @@ static int wm_adsp_cal_status_get(struct snd_kcontrol *kcontrol,
 
 	ucontrol->value.enumerated.item[0] = dsp->cal_status;
 
-	adsp_info(dsp, "get calib status=%d\n",
+	adsp_dbg(dsp, "get calib status=%d\n",
             ucontrol->value.enumerated.item[0]);
 
 	return 0;
@@ -987,7 +987,7 @@ static int wm_adsp_cal_chksum_get(struct snd_kcontrol *kcontrol,
 
 	ucontrol->value.enumerated.item[0] = dsp->cal_chksum;
 
-	adsp_info(dsp, "get calib checksum=%d\n",
+	adsp_dbg(dsp, "get calib checksum=%d\n",
             ucontrol->value.enumerated.item[0]);
 
 	return 0;

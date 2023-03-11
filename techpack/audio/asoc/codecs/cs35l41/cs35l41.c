@@ -381,7 +381,7 @@ static int cs35l41_digital_mute_get(struct snd_kcontrol *kcontrol,
 
 	ucontrol->value.integer.value[0] = 0;
 
-	dev_info(cs35l41->dev, "%s: %d\n", __func__, 0);
+	dev_dbg(cs35l41->dev, "%s: %d\n", __func__, 0);
 
 	return 0;
 }
