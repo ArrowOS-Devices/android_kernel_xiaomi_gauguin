@@ -203,7 +203,7 @@ static int cs35l41_dsp_load_ev(struct snd_soc_dapm_widget *w,
 	struct cs35l41_private *cs35l41 =
 		snd_soc_component_get_drvdata(component);
 
-	dev_info(cs35l41->dev, "%s: event = %d\n",__func__, event);
+	dev_dbg(cs35l41->dev, "%s: event = %d\n",__func__, event);
 
 	switch (event) {
 	case SND_SOC_DAPM_POST_PMU:
@@ -398,7 +398,7 @@ static int cs35l41_digital_mute_put(struct snd_kcontrol *kcontrol,
 
 	int mute = !!ucontrol->value.integer.value[0];
 
-	dev_info(cs35l41->dev, "%s: %d\n", __func__,
+	dev_dbg(cs35l41->dev, "%s: %d\n", __func__,
             mute);
 	switch (mute) {
 	case 0:
@@ -1817,7 +1817,7 @@ static int cs35l41_main_amp_event(struct snd_soc_dapm_widget *w,
 	bool pdn;
 	unsigned int val;
 
-	dev_info(cs35l41->dev,"%s, event = %d.\n", __func__, event);
+	dev_dbg(cs35l41->dev,"%s, event = %d.\n", __func__, event);
 
 	switch (event) {
 	case SND_SOC_DAPM_POST_PMU:
@@ -2294,7 +2294,7 @@ static int cs35l41_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
 			snd_soc_component_get_drvdata(codec_dai->component);
 	unsigned int asp_fmt, lrclk_fmt, sclk_fmt, slave_mode;
 
-	dev_info(cs35l41->dev,"%s, fmt = %d.\n", __func__, fmt);
+	dev_dbg(cs35l41->dev,"%s, fmt = %d.\n", __func__, fmt);
 
 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
 	case SND_SOC_DAIFMT_CBM_CFM:
@@ -2407,7 +2407,7 @@ static void cs35l41_pcm_shutdown(struct snd_pcm_substream *substream,
 	struct cs35l41_private *cs35l41 =
 			snd_soc_component_get_drvdata(dai->component);
 
-	dev_info(cs35l41->dev, "%s:shutdown dai= '%s', stream = %d, active = %d\n",
+	dev_dbg(cs35l41->dev, "%s:shutdown dai= '%s', stream = %d, active = %d\n",
 			__func__, dai->name, substream->stream, dai->active);
 
 }
@@ -2445,7 +2445,7 @@ static int cs35l41_is_speaker_in_handset(struct snd_pcm_substream *substream,
 	fw_name = cs35l41->fast_switch_names[cs35l41->fast_switch_file_idx];
 
 	if (!strcmp(fw_name, HANDSET_TUNING)) {
-		dev_info(cs35l41->dev, "%s: '%s'[%d] = '%s'\n",
+		dev_dbg(cs35l41->dev, "%s: '%s'[%d] = '%s'\n",
 				__func__, rcv_dai->name,
 				cs35l41->fast_switch_file_idx, fw_name);
 		return 1;
@@ -2465,7 +2465,7 @@ static int cs35l41_pcm_hw_params(struct snd_pcm_substream *substream,
 	u8 asp_width, asp_wl;
 
 	if (cs35l41_is_speaker_in_handset(substream, dai)) {
-		dev_info(cs35l41->dev, "%s: speaker amp"
+		dev_dbg(cs35l41->dev, "%s: speaker amp"
 				" hw_parmas in handset mode\n", __func__);
 		return 0;
 	}
@@ -2478,7 +2478,7 @@ static int cs35l41_pcm_hw_params(struct snd_pcm_substream *substream,
 	asp_wl = params_width(params);
 	asp_width = params_physical_width(params);
 
-	dev_info(cs35l41->dev, "%s: wl=%d, pwl=%d, rate=%d, active=%d\n",
+	dev_dbg(cs35l41->dev, "%s: wl=%d, pwl=%d, rate=%d, active=%d\n",
 			__func__, asp_wl, asp_width, rate, dai->active);
 
 	cs35l41->reset_cache.asp_wl = asp_wl;
@@ -2562,7 +2562,7 @@ static int cs35l41_pcm_startup(struct snd_pcm_substream *substream,
 	struct cs35l41_private *cs35l41 =
 			snd_soc_component_get_drvdata(dai->component);
 
-	dev_info(cs35l41->dev, "%s: stream = %d, dai = '%s', active = %d\n",
+	dev_dbg(cs35l41->dev, "%s: stream = %d, dai = '%s', active = %d\n",
 			__func__, substream->stream, dai->name, dai->active);
 
 #ifdef CONFIG_TARGET_SUPPORT_TDM
@@ -2587,7 +2587,7 @@ static int cs35l41_component_set_sysclk(struct snd_soc_component *component,
 				       snd_soc_component_get_drvdata(component);
 
 	if (cs35l41->extclk_freq) {
-		dev_info(cs35l41->dev, "%s: clock has beed configured,"
+		dev_dbg(cs35l41->dev, "%s: clock has beed configured,"
 				" clk_id=%d, src=%d, freq=%d\n",
 				__func__, clk_id, source, freq);
 		return 0;
