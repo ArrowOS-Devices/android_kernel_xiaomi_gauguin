@@ -48,6 +48,7 @@
 #include "msm_mmu.h"
 #include "sde_wb.h"
 #include "sde_dbg.h"
+#include "sde/sde_encoder.h"
 
 /*
  * MSM driver version:
@@ -65,7 +66,7 @@
 static DEFINE_MUTEX(msm_release_lock);
 
 #define IDLE_ENCODER_MASK_DEFAULT	1
-#define IDLE_TIMEOUT_MS_DEFAULT		100
+#define IDLE_TIMEOUT_MS_DEFAULT		100 - IDLE_POWERCOLLAPSE_DURATION
 
 static void msm_fb_output_poll_changed(struct drm_device *dev)
 {
