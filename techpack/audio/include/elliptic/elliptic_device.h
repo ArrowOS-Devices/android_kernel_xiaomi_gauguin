@@ -41,6 +41,7 @@ struct elliptic_device {
 
 extern struct class *elliptic_class;
 
+#ifdef DEBUG
 #define EL_PRINT_E(string, arg...) \
 	pr_err("[ELUS] : (%s) : " string "\n", __func__, ##arg)
 
@@ -52,4 +53,9 @@ extern struct class *elliptic_class;
 
 #define EL_PRINT_D(string, arg...) \
 	pr_debug("[ELUS] : (%s) : " string "\n", __func__, ##arg)
-
+#else
+#define EL_PRINT_E(string, arg...) do {} while (0)
+#define EL_PRINT_W(string, arg...) do {} while (0)
+#define EL_PRINT_I(string, arg...) do {} while (0)
+#define EL_PRINT_D(string, arg...) do {} while (0)
+#endif
