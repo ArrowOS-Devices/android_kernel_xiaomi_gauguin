@@ -1815,9 +1815,6 @@ static void ffs_data_put(struct ffs_data *ffs)
 
 static void ffs_data_closed(struct ffs_data *ffs)
 {
-	struct ffs_epfile *epfiles;
-	unsigned long flags;
-
 	ENTER();
 
 	ffs_log("state %d setup_state %d flag %lu opened %d", ffs->state,
@@ -1826,18 +1823,13 @@ static void ffs_data_closed(struct ffs_data *ffs)
 	if (atomic_dec_and_test(&ffs->opened)) {
 		if (ffs->no_disconnect) {
 			ffs->state = FFS_DEACTIVATED;
-			spin_lock_irqsave(&ffs->eps_lock, flags);
-			epfiles = ffs->epfiles;
-			ffs->epfiles = NULL;
-			spin_unlock_irqrestore(&ffs->eps_lock,
-							flags);
-
 			mutex_lock(&ffs->mutex);
-			if (epfiles)
-				ffs_epfiles_destroy(epfiles,
-						 ffs->eps_count);
+			if (ffs->epfiles) {
+				ffs_epfiles_destroy(ffs->epfiles,
+						   ffs->eps_count);
+				ffs->epfiles = NULL;
+			}
 			mutex_unlock(&ffs->mutex);
-
 			if (ffs->setup_state == FFS_SETUP_PENDING)
 				__ffs_ep0_stall(ffs);
 		} else {
@@ -1898,9 +1890,6 @@ static struct ffs_data *ffs_data_new(const char *dev_name)
 
 static void ffs_data_clear(struct ffs_data *ffs)
 {
-	struct ffs_epfile *epfiles;
-	unsigned long flags;
-
 	ENTER();
 
 	ffs_log("enter: state %d setup_state %d flag %lu", ffs->state,
@@ -1912,19 +1901,9 @@ static void ffs_data_clear(struct ffs_data *ffs)
 
 	BUG_ON(ffs->gadget);
 
-	spin_lock_irqsave(&ffs->eps_lock, flags);
-	epfiles = ffs->epfiles;
-	ffs->epfiles = NULL;
-	spin_unlock_irqrestore(&ffs->eps_lock, flags);
-
-	/*
-	 * potential race possible between ffs_func_eps_disable
-	 * & ffs_epfile_release therefore maintaining a local
-	 * copy of epfile will save us from use-after-free.
-	 */
 	mutex_lock(&ffs->mutex);
-	if (epfiles) {
-		ffs_epfiles_destroy(epfiles, ffs->eps_count);
+	if (ffs->epfiles) {
+		ffs_epfiles_destroy(ffs->epfiles, ffs->eps_count);
 		ffs->epfiles = NULL;
 	}
 
@@ -2026,9 +2005,9 @@ static void functionfs_unbind(struct ffs_data *ffs)
 		ffs->ep0req = NULL;
 		ffs->gadget = NULL;
 		clear_bit(FFS_FL_BOUND, &ffs->flags);
-		mutex_unlock(&ffs->mutex);
 		ffs_log("state %d setup_state %d flag %lu gadget %pK\n",
 			ffs->state, ffs->setup_state, ffs->flags, ffs->gadget);
+		mutex_unlock(&ffs->mutex);
 		ffs_data_put(ffs);
 	}
 }
@@ -2094,17 +2073,16 @@ static void ffs_epfiles_destroy(struct ffs_epfile *epfiles, unsigned count)
 
 static void ffs_func_eps_disable(struct ffs_function *func)
 {
+	struct ffs_data *ffs      = func->ffs;
 	struct ffs_ep *ep;
-	struct ffs_data *ffs;
 	struct ffs_epfile *epfile;
 	unsigned short count;
 	unsigned long flags;
 
 	spin_lock_irqsave(&func->ffs->eps_lock, flags);
-	ep = func->eps;
-	ffs = func->ffs;
-	epfile = func->ffs->epfiles;
 	count = func->ffs->eps_count;
+	epfile = func->ffs->epfiles;
+	ep = func->eps;
 
 	ffs_log("enter: state %d setup_state %d flag %lu", func->ffs->state,
 		func->ffs->setup_state, func->ffs->flags);
@@ -2127,18 +2105,14 @@ static void ffs_func_eps_disable(struct ffs_function *func)
 
 static int ffs_func_eps_enable(struct ffs_function *func)
 {
-	struct ffs_data *ffs;
-	struct ffs_ep *ep;
-	struct ffs_epfile *epfile;
-	unsigned short count;
+	struct ffs_data *ffs      = func->ffs;
+	struct ffs_ep *ep         = func->eps;
+	struct ffs_epfile *epfile = ffs->epfiles;
+	unsigned count            = ffs->eps_count;
 	unsigned long flags;
 	int ret = 0;
 
 	spin_lock_irqsave(&func->ffs->eps_lock, flags);
-	ffs = func->ffs;
-	ep = func->eps;
-	epfile = ffs->epfiles;
-	count = ffs->eps_count;
 
 	ffs_log("enter: state %d setup_state %d flag %lu", func->ffs->state,
 		func->ffs->setup_state, func->ffs->flags);
