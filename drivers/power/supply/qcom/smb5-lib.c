@@ -22,11 +22,11 @@
 #include "storm-watch.h"
 #include "schgm-flash.h"
 
+#ifdef DEBUG
 #define smblib_err(chg, fmt, ...)		\
 	pr_err("%s: %s: " fmt, chg->name,	\
 		__func__, ##__VA_ARGS__)	\
 
-#ifdef DEBUG
 #define smblib_dbg(chg, reason, fmt, ...)			\
 	do {							\
 		if (*chg->debug_mask & (reason))		\
@@ -37,6 +37,7 @@
 				__func__, ##__VA_ARGS__);	\
 	} while (0)
 #else
+#define smblib_err(chg, fmt, ...) do {} while (0)
 #define smblib_dbg(chg, reason, fmt, ...) do {} while (0)
 #endif
 
