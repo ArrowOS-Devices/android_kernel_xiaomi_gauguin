@@ -221,7 +221,6 @@ static int pm8xxx_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alarm)
 
 	rc = rtc_valid_tm(&alarm->time);
 	if (rc < 0) {
-		dev_err(dev, "Invalid alarm time read from RTC\n");
 		return rc;
 	}
 
@@ -390,10 +389,8 @@ static int pm8xxx_rtc_probe(struct platform_device *pdev)
 		return -ENXIO;
 
 	rtc_dd->rtc_alarm_irq = platform_get_irq(pdev, 0);
-	if (rtc_dd->rtc_alarm_irq < 0) {
-		dev_err(&pdev->dev, "Alarm IRQ resource absent!\n");
+	if (rtc_dd->rtc_alarm_irq < 0)
 		return -ENXIO;
-	}
 
 	rtc_dd->allow_set_time = of_property_read_bool(pdev->dev.of_node,
 						      "allow-set-time");
@@ -443,7 +440,6 @@ static int pm8xxx_rtc_restore(struct device *dev)
 					  IRQF_TRIGGER_RISING,
 					  "pm8xxx_rtc_alarm", rtc_dd);
 	if (rc < 0) {
-		dev_err(rtc_dd->rtc_dev, "Request IRQ failed (%d)\n", rc);
 		return rc;
 	}
 
