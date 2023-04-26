@@ -26,12 +26,6 @@
 		};
 	};
 
-	xiaomi_touch {
-		compatible = "xiaomi-touch";
-		status = "ok";
-		touch,name = "xiaomi-touch";
-	};
-
 	dsi_panel_pwr_supply_labibb: dsi_panel_pwr_supply_labibb {
 		#address-cells = <1>;
 		#size-cells = <0>;
