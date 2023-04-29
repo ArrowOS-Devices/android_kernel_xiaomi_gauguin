@@ -203,6 +203,10 @@
 						05 01 00 00 46 00 02 10 00];
 				qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
 				qcom,mdss-dsi-post-off-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-displayoff-command = [05 01 00 00 20 00 02 28 00];
+				qcom,mdss-dsi-displayon-command = [05 01 00 00 14 00 02 29 00];
+				qcom,mdss-dsi-displayoff-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-displayon-command-state = "dsi_hs_mode";
 				/* CABC */
 				qcom,mdss-dsi-dispparam-cabcuion-command = [15 00 00 00 00 00 02 FF 10 15 01 00 00 00 00 02 55 01];
 				qcom,mdss-dsi-dispparam-cabcuion-command-state = "dsi_hs_mode";
