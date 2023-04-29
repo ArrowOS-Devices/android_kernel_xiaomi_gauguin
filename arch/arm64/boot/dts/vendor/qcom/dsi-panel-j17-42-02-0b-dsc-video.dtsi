@@ -210,6 +210,8 @@
 };
 
 &dsi_j17_42_02_0b_video {
+	mi,feature-enabled;
+	mi,is-tddi-flag;
         qcom,esd-check-enabled;
         qcom,mdss-dsi-panel-status-check-mode = "reg_read";
         qcom,mdss-dsi-panel-status-command = [06 01 00 01 00 00 01 0a];
