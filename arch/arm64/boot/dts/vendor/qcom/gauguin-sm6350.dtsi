@@ -59,7 +59,6 @@
 	/delete-property/ vdd-supply;
 	lab-supply = <&lcdb_ldo_vreg>;
 	ibb-supply = <&lcdb_ncp_vreg>;
-	qcom,dsi-default-panel = <&dsi_j17_36_02_0a_video>;
 };
 
 &pm6150l_rgb_led {
@@ -1149,9 +1148,4 @@
 		status = "ok";
 		spi-max-frequency = <19200000>;
 	};
-};
-
-&msm_notifier {
-	panel = <&dsi_j17_36_02_0a_video
-		 &dsi_j17_42_02_0b_video>;
 };

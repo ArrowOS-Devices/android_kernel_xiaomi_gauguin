@@ -462,6 +462,12 @@
 			label = "cont_splash_region";
 		};
 
+	        disp_rdump_memory: disp_rdump_region@ac000000 {
+	                reg = <0x0 0xac000000 0x0 0x01000000>;
+	                no-map;
+	                label = "disp_rdump_region";
+	        };
+
 		dfps_data_memory: dfps_data_region {
 			reg = <0x0 0xA2300000 0x0 0x0100000>;
 			label = "dfps_data_region";
